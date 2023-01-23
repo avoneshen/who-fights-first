@@ -84,8 +84,14 @@ interface FightsFirstState {
       };
   actingPlayer: null | string;
   opposingPlayer: null | string;
+  screen: Screens;
 }
 type ActionTypes = { type: string };
+export enum Screens {
+  NamePlayers = "NAME_PLAYERS",
+  SelectActivePlayer = "SELECT_ACTIVE_PLAYER",
+  EnterUnits = "ENTER_UNITS",
+}
 
 function produceInitialState(): FightsFirstState {
   return {
@@ -94,5 +100,6 @@ function produceInitialState(): FightsFirstState {
     players: {},
     actingPlayer: null,
     opposingPlayer: null,
+    screen: Screens.NamePlayers,
   };
 }
