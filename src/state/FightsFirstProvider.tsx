@@ -5,6 +5,15 @@ import {
   Dispatch,
   ReactNode,
 } from "react";
+import { ActionTypes, NAME_PLAYERS } from "./actions";
+
+let playerIDCounter = 0;
+
+export enum Screens {
+  NamePlayers = "NAME_PLAYERS",
+  SelectActivePlayer = "SELECT_ACTIVE_PLAYER",
+  EnterUnits = "ENTER_UNITS",
+}
 
 export const FightsFirstContext = createContext<null | FightsFirstState>(null);
 export const FightsFirstDispatchContext =
@@ -57,8 +66,35 @@ export default function FightsFirstProvider({
 // reducer
 function FightsFirstReducer(
   state: FightsFirstState,
-  action: { type: string }
+  action: ActionTypes
 ): FightsFirstState {
+  const type = action.type;
+
+  switch (type) {
+    case NAME_PLAYERS: {
+      const { playerOneName, playerTwoName } = action;
+      const playerOneID = playerIDCounter++;
+      const playerTwoID = playerIDCounter++;
+
+      return {
+        ...state,
+        players: {
+          [playerOneID]: {
+            name: playerOneName,
+            units: [],
+          },
+          [playerTwoID]: {
+            name: playerTwoName,
+            units: [],
+          },
+        },
+        actingPlayer: String(playerOneID),
+        opposingPlayer: String(playerTwoID),
+        screen: Screens.EnterUnits,
+      };
+    }
+  }
+
   return state;
 }
 
@@ -85,12 +121,6 @@ interface FightsFirstState {
   actingPlayer: null | string;
   opposingPlayer: null | string;
   screen: Screens;
-}
-type ActionTypes = { type: string };
-export enum Screens {
-  NamePlayers = "NAME_PLAYERS",
-  SelectActivePlayer = "SELECT_ACTIVE_PLAYER",
-  EnterUnits = "ENTER_UNITS",
 }
 
 function produceInitialState(): FightsFirstState {
