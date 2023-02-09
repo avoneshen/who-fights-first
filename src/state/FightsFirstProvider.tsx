@@ -5,7 +5,7 @@ import {
   Dispatch,
   ReactNode,
 } from "react";
-import { ActionTypes, NAME_PLAYERS } from "./actions";
+import { ActionTypes, NAME_PLAYERS, SELECT_ACTIVE_PLAYER, NamePlayers} from "./actions";
 
 let playerIDCounter = 0;
 
@@ -63,7 +63,6 @@ export default function FightsFirstProvider({
   );
 }
 
-// reducer
 function FightsFirstReducer(
   state: FightsFirstState,
   action: ActionTypes
@@ -90,8 +89,12 @@ function FightsFirstReducer(
         },
         actingPlayer: String(playerOneID),
         opposingPlayer: String(playerTwoID),
-        screen: Screens.EnterUnits,
+        screen: Screens.SelectActivePlayer,
       };
+    }
+    case SELECT_ACTIVE_PLAYER: {
+      const { activePlayer } = action;
+      return state;
     }
   }
 
