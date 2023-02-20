@@ -92,9 +92,16 @@ function FightsFirstReducer(
         screen: Screens.SelectActivePlayer,
       };
     }
+
+
     case SELECT_ACTIVE_PLAYER: {
       const { activePlayer } = action;
-      return state;
+      
+      return {
+        ...state,
+        screen: Screens.EnterUnits,
+        actingPlayer: activePlayer
+      };
     }
   }
 

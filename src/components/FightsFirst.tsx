@@ -1,6 +1,8 @@
 import React from "react";
 import { Screens, useFightsFirst } from "../state/FightsFirstProvider";
 import NamePlayers from "./NamePlayers";
+import SelectActivePlayers from
+"./SelectActivePlayers"
 
 export default function FightsFirst() {
   const state = useFightsFirst();
@@ -10,7 +12,7 @@ export default function FightsFirst() {
       return <NamePlayers />;
     }
     case Screens.SelectActivePlayer: {
-      return <div>Select Active Player</div>;
+      return <SelectActivePlayers />;
     }
     case Screens.EnterUnits: {
       return <div>Enter Units</div>;
